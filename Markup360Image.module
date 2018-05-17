@@ -1,0 +1,35 @@
+<?php
+class Markup360Image extends WireData implements Module, ConfigurableModule {
+
+    static function getModuleInfo() {
+        return [
+            'title'   => '360° Images',
+            'summary' => 'Easily display 360° images with a-frame on your website (crossplattform, crossbrowser).',
+            'version' => '0.0.1',
+            'author'  => 'danielstieber',
+            'href'    => 'https://github.com/danielstieber/Markup360Image',
+            'icon'    => 'circle-o-notch',
+            'autoload'=> false,
+            'singular'=> false
+        ];
+    }
+    private $n = 0;
+
+	public function render($img, $text, $font = "", $height = "800px", $width = "100%") {
+		$this->n++;
+		$id = $this->n;
+
+		if(!empty($font)) $font = " font='$font'"; 
+
+		$out = '';
+
+		if($this->n === 1) $out .= "<script type='text/javascript' src='{$this->config->urls->Markup360Image}aframe.min.js'></script>";
+		$out .= "<style>a-scene { height: $height; width: $width }</style>";
+		$out .= "<div id='aframe$this->n'><a-scene embedded> ";
+		$out .= "<a-sky src='$img' rotation='0 -130 0'></a-sky>";
+		if(!empty($text))
+			$out .=	"<a-text$font value='$text' width='6' position='-2.5 0.25 -1.5' rotation='0 15 0'></a-text>";
+		$out .= "</a-scene></div>";
+		return $out;
+	}
+}
