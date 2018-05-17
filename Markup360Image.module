@@ -15,7 +15,7 @@ class Markup360Image extends WireData implements Module, ConfigurableModule {
     }
     private $n = 0;
 
-	public function render($img, $text, $font = "", $height = "800px", $width = "100%") {
+	public function render($img, $text, $font = "", $width = "100%",  $height = "800px") {
 		$this->n++;
 		$id = $this->n;
 
@@ -28,7 +28,7 @@ class Markup360Image extends WireData implements Module, ConfigurableModule {
 		$out .= "<div id='aframe$this->n'><a-scene embedded> ";
 		$out .= "<a-sky src='$img' rotation='0 -130 0'></a-sky>";
 		if(!empty($text))
-			$out .=	"<a-text$font value='$text' width='6' position='-2.5 0.25 -1.5' rotation='0 15 0'></a-text>";
+			$out .=	"<a-text$font value='$text' width='6' align='center' position='0 1.3 -3' rotation='0 0 0'></a-text>";
 		$out .= "</a-scene></div>";
 		return $out;
 	}
